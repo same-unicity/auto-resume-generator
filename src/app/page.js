@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -20,6 +20,33 @@ export default function Home() {
 
   const [resumeText, setResumeText] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const mockData = searchParams.get("isMock") === "1";
+    console.log(">>>> ", mockData);
+
+    if (mockData) {
+      const mockFormData = {
+        name: "John Doe",
+        email: "john.doe@example.com",
+        phone: "0812345678",
+        linkedin: "https://linkedin.com/in/johndoe",
+        github: "https://github.com/johndoe",
+        degree: "Bachelor of Science",
+        field: "Computer Science",
+        school: "Chulalongkorn University",
+        year: "2024",
+        skills: "JavaScript, React, Node.js, Python",
+        experience:
+          "Software Developer at Tech Company (2022-2024)\n- Developed web applications\n- Implemented new features",
+        careerGoal:
+          "To become a senior software engineer and contribute to innovative projects",
+      };
+
+      setFormData(mockFormData);
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -115,6 +142,7 @@ export default function Home() {
           <input
             name="name"
             placeholder="Full Name *"
+            value={formData.name}
             onChange={handleChange}
             required
             style={{
@@ -127,6 +155,7 @@ export default function Home() {
             name="email"
             placeholder="Email *"
             type="email"
+            value={formData.email}
             onChange={handleChange}
             required
             style={{
@@ -139,6 +168,7 @@ export default function Home() {
             name="phone"
             placeholder="Phone Number"
             type="tel"
+            value={formData.phone}
             onChange={handleChange}
             style={{
               padding: "8px",
@@ -150,6 +180,7 @@ export default function Home() {
             name="linkedin"
             placeholder="LinkedIn URL"
             type="url"
+            value={formData.linkedin}
             onChange={handleChange}
             style={{
               padding: "8px",
@@ -161,6 +192,7 @@ export default function Home() {
             name="github"
             placeholder="GitHub URL"
             type="url"
+            value={formData.github}
             onChange={handleChange}
             style={{
               padding: "8px",
@@ -171,6 +203,7 @@ export default function Home() {
           <input
             name="degree"
             placeholder="Degree *"
+            value={formData.degree}
             onChange={handleChange}
             required
             style={{
@@ -189,6 +222,7 @@ export default function Home() {
               border: "1px solid #e2e8f0",
               borderRadius: "4px",
             }}
+            value={formData.field}
           />
           <input
             name="school"
@@ -200,6 +234,7 @@ export default function Home() {
               border: "1px solid #e2e8f0",
               borderRadius: "4px",
             }}
+            value={formData.school}
           />
           <input
             name="year"
@@ -212,6 +247,7 @@ export default function Home() {
               border: "1px solid #e2e8f0",
               borderRadius: "4px",
             }}
+            value={formData.year}
           />
           <textarea
             name="skills"
@@ -223,6 +259,7 @@ export default function Home() {
               borderRadius: "4px",
               minHeight: "100px",
             }}
+            value={formData.skills}
           />
           <textarea
             name="experience"
@@ -234,6 +271,7 @@ export default function Home() {
               borderRadius: "4px",
               minHeight: "100px",
             }}
+            value={formData.experience}
           />
           <textarea
             name="careerGoal"
@@ -245,6 +283,7 @@ export default function Home() {
               borderRadius: "4px",
               minHeight: "100px",
             }}
+            value={formData.careerGoal}
           />
           <button
             onClick={generateResume}

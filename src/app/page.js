@@ -24,7 +24,6 @@ export default function Home() {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const mockData = searchParams.get("isMock") === "1";
-    console.log(">>>> ", mockData);
 
     if (mockData) {
       const mockFormData = {
